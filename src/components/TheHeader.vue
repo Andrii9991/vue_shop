@@ -1,53 +1,55 @@
 <template>
   <header class="header">
-    <nav class="navigation">
-      <router-link
-        class="navigation__link"
-        active-class="active-link"
-        :to="{ name: 'HomePage' }"
-      >
-        <img class="logo" src="@/design/images/logo.svg" alt="logo" />
-      </router-link>
+    <div class="header__wrapper">
+      <nav class="navigation">
+        <router-link
+          class="navigation__link"
+          active-class="active-link"
+          :to="{ name: 'HomePage' }"
+        >
+          <img class="logo" src="@/design/images/logo.svg" alt="logo" />
+        </router-link>
 
-      <router-link
-        v-for="link in linksList"
-        :key="link.name"
-        class="navigation__link"
-        :to="{ name: link.name }"
-        active-class="active-link"
-      >
-        <div class="icon-wrapper">
-          <img
-            class="icon-wrapper__image"
-            :src="require(`@/design/images/${link.img}.svg`)"
-            alt=""
-          />
-          <p>{{ link.title }}</p>
-        </div>
-      </router-link>
-    </nav>
-    <div class="actions">
-      <BaseButton
-        class="header__button"
-        @click.native="authAction"
-        size="small"
-        :text="authButtonText"
-      />
-
-      <router-link
-        class="navigation__link"
-        active-class="active-link"
-        :to="{ name: 'CartPage' }"
-      >
-        <img
-          class="counter-logo"
-          src="@/design/images/cartIcon.svg"
-          alt="logo"
+        <router-link
+          v-for="link in linksList"
+          :key="link.name"
+          class="navigation__link close"
+          :to="{ name: link.name }"
+          active-class="active-link"
+        >
+          <div class="icon-wrapper">
+            <img
+              class="icon-wrapper__image"
+              :src="require(`@/design/images/${link.img}.svg`)"
+              alt=""
+            />
+            <p>{{ link.title }}</p>
+          </div>
+        </router-link>
+      </nav>
+      <div class="actions">
+        <BaseButton
+          class="header__button"
+          @click.native="authAction"
+          size="small"
+          :text="authButtonText"
         />
-        <h6 class="counter" v-if="countCart > 0">
-          {{ countCart }}
-        </h6>
-      </router-link>
+
+        <router-link
+          class="navigation__link"
+          active-class="active-link"
+          :to="{ name: 'CartPage' }"
+        >
+          <img
+            class="counter-logo"
+            src="@/design/images/cartIcon.svg"
+            alt="logo"
+          />
+          <h6 class="counter" v-if="countCart > 0">
+            {{ countCart }}
+          </h6>
+        </router-link>
+      </div>
     </div>
   </header>
 </template>
@@ -97,12 +99,19 @@ export default class TheHeader extends Vue {
 <style scoped lang="scss">
 .header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   background-color: $grey;
   padding: 0 16px;
-  height: 56px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-height: 56px;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1240px;
+  }
   .navigation {
     display: flex;
 
@@ -162,12 +171,13 @@ export default class TheHeader extends Vue {
         background-color: $red;
         border-radius: 50px;
         padding: 0 6px;
-        // min-width: 12px;
         position: absolute;
         right: 20px;
         top: 0px;
       }
     }
   }
+}
+@media (max-width: 767px) {
 }
 </style>
